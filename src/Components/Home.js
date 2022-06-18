@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <>
       {Homedata.map((products, i) => {
-        const { image, name } = products;
+        const { image, name, _id } = products;
 
         return (
           <>

@@ -21,7 +21,7 @@ const Navbar = () => {
         <Spacer />
         <ButtonGroup gap="2">
           <Button colorScheme="Black" variant="ghost">
-            Cart(0)
+            Cart({Homedata.length})
           </Button>
           <Button colorScheme="teal">Sign Up</Button>
           <Button colorScheme="teal">Log in</Button>
