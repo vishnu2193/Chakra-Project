@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./styles.css";
-import { Home, About } from "./Components";
+import { Home, About, Errorpage } from "./Components";
 import Navbar from "./Components/Navbar";
 import { NewHomeProvider } from "./Context/NewHomeContext";
 
@@ -11,9 +11,8 @@ export default function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />}></Route>
-        </Routes>
-        <Routes>
           <Route path="/about" element={<About />}></Route>
+          <Route path="*" element={<Errorpage />}></Route>
         </Routes>
       </BrowserRouter>
     </NewHomeProvider>
