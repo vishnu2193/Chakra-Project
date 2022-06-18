@@ -1,12 +1,14 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import NewHomeReducers from "../reducers/NewHomeReducers";
+import axios from "axios";
 
 const NewHomeContext = createContext();
 
 export const NewHomeProvider = ({ children }) => {
   const intialState = {
     Homedata: [],
-    loading: true
+    loading: false,
+    error: false
   };
 
   const [state, dispatch] = useReducer(NewHomeReducers, intialState);
@@ -14,19 +16,33 @@ export const NewHomeProvider = ({ children }) => {
   //fething
 
   const fethingHomedata = async () => {
-    const response = await fetch(
-      `https://shrouded-coast-86509.herokuapp.com/newCollections`
-    );
-    const data = await response.json();
+    dispatch({
+      type: "LOADING",
+      payload: true
+    });
+    try {
+      const response = await axios.get(
+        `https://shrouded-coast-86509.herokuapp.com/newCollections`
+      );
+      const data = response.data;
 
-    // console.log(data)
-    dispatch({
-      type: "GET_NEWHOMEDATA",
-      payload: data
-    });
-    dispatch({
-      type: "LOADING"
-    });
+      dispatch({
+        type: "GET_NEWHOMEDATA",
+        payload: data
+      });
+      dispatch({
+        type: "LOADING",
+        payload: false
+      });
+      dispatch({ type: "ERROR", payload: false });
+    } catch (error) {
+      dispatch({
+        type: "LOADING",
+        payload: false
+      });
+      console.log(error.message);
+      dispatch({ type: "ERROR", payload: true });
+    }
   };
 
   //delete
@@ -46,7 +62,12 @@ export const NewHomeProvider = ({ children }) => {
 
   return (
     <NewHomeContext.Provider
-      value={{ Homedata: state.Homedata, loading: state.loading, deleteItem }}
+      value={{
+        Homedata: state.Homedata,
+        loading: state.loading,
+        error: state.error,
+        deleteItem
+      }}
     >
       {children}
     </NewHomeContext.Provider>

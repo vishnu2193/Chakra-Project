@@ -1,9 +1,12 @@
 const NewHomeReducers = (state, action) => {
   if (action.type === "GET_NEWHOMEDATA") {
-    return { ...state, Homedata: action.payload, loading: false };
+    return { ...state, Homedata: action.payload };
   }
   if (action.type === "LOADING") {
-    return { ...state, loading: false };
+    return { ...state, loading: action.payload };
+  }
+  if (action.type === "ERROR") {
+    return { ...state, error: action.payload };
   }
   if (action.type === "DELETE_ITEM") {
     return {
