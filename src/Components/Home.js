@@ -18,10 +18,10 @@ const Home = () => {
   return (
     <>
       {Homedata.map((products, i) => {
-        const { image, name, _id } = products;
+        const { image, name, _id, price } = products;
 
         return (
-          <>
+          <div key={_id}>
             <Image
               src={image[0].image}
               alt={name}
@@ -30,7 +30,8 @@ const Home = () => {
             />
 
             <h3>{name}</h3>
-          </>
+            <h3>{price}</h3>
+          </div>
         );
       })}
     </>

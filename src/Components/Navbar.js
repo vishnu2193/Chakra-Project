@@ -11,7 +11,7 @@ import {
 
 const Navbar = () => {
   const { Homedata, loading } = useContext(NewHomeContext);
-  console.log(Homedata);
+ 
   return (
     <>
       <Flex minWidth="max-content" alignItems="center" gap="2" bg="green.400">
